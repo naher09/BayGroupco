@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Bay Group</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+    {% load static %}
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/logo.png' %}" rel="icon">
+  <link href="{% static 'assets/img/logo.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+
+<style>
+.tooltip-menu {
+  position: relative;
+}
+
+.tooltip-menu::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: -35px;        /* নিচে দেখাতে */
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+}
+
+.tooltip-menu:hover::after {
+  opacity: 1;
+  bottom: -45px;
+}
+/* Submenu scroll */
+.navmenu .dropdown ul {
+  max-height: 320px;     /* কয়টা item দেখাবে একসাথে */
+  overflow-y: auto;      /* Vertical scroll */
+  overflow-x: hidden;    /* Horizontal scroll বন্ধ */
+}
+
+/* Safety net: if main.js fails to remove #preloader for any reason,
+   it must never sit on top of the page intercepting clicks. */
+#preloader {
+  pointer-events: none !important;
+}
+</style>
+
+<script>
+  // Safety net: force-remove the preloader shortly after load even if
+  // main.js's own removal script fails (JS error, slow asset, etc.),
+  // so it can never keep blocking clicks on the page underneath it.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      var preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.remove();
+      }
+    }, 2000);
+  });
+</script>
+
+
+  <header id="header" class="header d-flex align-items-center fixed-top" style="padding: 12px;">
+  <div class="container position-relative d-flex align-items-center">
+
+    <!-- Logo (Left side) -->
+    <a href="/" class="logo d-flex align-items-center">
+      <img src="{% static 'assets/img/logo.png' %}" alt="Constra" style="max-height:60px;">
+    </a>
+
+    <!-- Nav Menu (Right side) -->
+    <nav id="navmenu" class="navmenu ms-auto">
+      <ul>
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/key_management/">Key Management</a></li>
+
+        <li class="dropdown">
+          <a href="#"><span>Our Concerns</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            {% for pages in business_page_view %}
+              <li><a href="{% url 'business_page' pages.page_name %}">{{ pages.page_name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#"><span>Our Partners</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul>
+            {% for pages in partner_page_view %}
+              <li><a href="{% url 'partner_page' pages.page_name %}">{{ pages.page_name }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li>
+          <a href="/csr_section/" class="tooltip-menu" data-title="Corporate Social Responsibility">CSR</a>
+        </li>
+
+        {% if aen_posts %}
+        <li>
+          <a href="/aen_section/" class="tooltip-menu" data-title="Achievements & Events (News)">
+            AEN
+          </a>
+        </li>
+        {% endif %}
+
+        <li><a href="/career/">Career</a></li>
+        <li><a href="/contact/">Contact Us</a></li>
+      </ul>
+
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+
+  </div>
+</header>
+
+
+
+{% block content %}
+
+{% endblock %}
+
+<footer id="footer" class="footer-premium position-relative">
+  <div class="container footer-top">
+    <div class="row gy-5">
+
+      <!-- Brand -->
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'home' %}" class="footer-logo d-inline-flex align-items-center mb-3">
+          <img src="{% static 'assets/img/logo.png' %}" alt="Bay Group" style="height: 48px;">
+        </a>
+        {% if footer_about %}
+        <p class="footer-tagline">{{ footer_about.description|striptags|truncatewords:22 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Useful Links -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <h4>Useful Links</h4>
+        <ul class="footer-link-list">
+          {% for link in useful_links %}
+            <li><a href="{{ link.url }}"><i class="bi bi-chevron-right"></i>{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Joint Venture -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <h4>Joint Venture</h4>
+        {% if contact_info %}
+          {% if contact_info.jb %}
+          <div class="footer-jv-title">{{ contact_info.jb|safe }}</div>
+          {% endif %}
+          {% if contact_info.jv_whatsapp %}
+          <p class="footer-info-line"><i class="bi bi-telephone"></i>{{ contact_info.jv_whatsapp }}</p>
+          {% endif %}
+          {% if contact_info.jv_email %}
+          <p class="footer-info-line"><i class="bi bi-envelope"></i>{{ contact_info.jv_email }}</p>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <!-- Contact -->
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <h4>Contact Us</h4>
+        {% if contact_info %}
+          <p class="footer-info-line"><i class="bi bi-geo-alt"></i>{{ contact_info.address }}</p>
+          <p class="footer-info-line"><i class="bi bi-telephone"></i>{{ contact_info.phone }}</p>
+          <p class="footer-info-line"><i class="bi bi-envelope"></i>{{ contact_info.email }}</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% if social_media %}
+    <div class="footer-social-row">
+      <p class="footer-social-text">{{ social_media.description }}</p>
+      <div class="social-links d-flex gap-2">
+        {% if social_media.link_1 %}
+        <a href="{{ social_media.link_1 }}" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        {% endif %}
+        {% if social_media.link_2 %}
+        <a href="{{ social_media.link_2 }}" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+        {% endif %}
+        {% if social_media.link_3 %}
+        <a href="{{ social_media.link_3 }}" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <p class="mb-0">&copy; {% now "Y" %} <strong>Bay Group</strong>. All Rights Reserved.</p>
+      <p class="mb-0 footer-bottom-links">
+        <a href="/about/">About</a><span>/</span><a href="/career/">Career</a><span>/</span><a href="/contact/">Contact</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer-premium {
+  background: #f9f9f9;
+  color: #555555;
+  font-family: 'Poppins', sans-serif;
+  padding-top: 70px;
+  border-top: 1px solid #e0e0e0;
+}
+.footer-premium .footer-top { padding-bottom: 30px; }
+.footer-premium h4 {
+  position: relative;
+  color: #32353a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+}
+.footer-premium h4::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 36px;
+  height: 3px;
+  background: var(--accent-color, #e84545);
+  border-radius: 2px;
+}
+.footer-premium .footer-tagline {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #777777;
+  margin-top: 4px;
+}
+.footer-premium .footer-link-list { list-style: none; padding: 0; margin: 0; }
+.footer-premium .footer-link-list li { margin-bottom: 12px; }
+.footer-premium .footer-link-list a {
+  color: #555555;
+  text-decoration: none;
+  font-size: 14.5px;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+}
+.footer-premium .footer-link-list a i {
+  font-size: 12px;
+  margin-right: 8px;
+  color: var(--accent-color, #e84545);
+  transition: transform 0.25s ease;
+}
+.footer-premium .footer-link-list a:hover {
+  color: var(--accent-color, #e84545);
+  padding-left: 4px;
+}
+.footer-premium .footer-link-list a:hover i { transform: translateX(3px); }
+.footer-premium .footer-jv-title {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #555555;
+  margin-bottom: 10px;
+}
+.footer-premium .footer-jv-title p {
+  margin: 0;
+}
+.footer-premium .footer-info-line {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: #555555;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-start;
+}
+.footer-premium .footer-info-line i {
+  color: var(--accent-color, #e84545);
+  margin-right: 10px;
+  margin-top: 3px;
+  font-size: 14px;
+}
+.footer-premium .footer-info-line p {
+  margin: 0 0 6px 0;
+}
+.footer-premium .footer-info-line p:last-child {
+  margin-bottom: 0;
+}
+.footer-premium .footer-social-row {
+  border-top: 1px solid #e0e0e0;
+  margin-top: 10px;
+  padding-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-premium .footer-social-text {
+  font-size: 14px;
+  color: #777777;
+  margin: 0;
+}
+.footer-premium .social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #d8d8d8;
+  color: #555555;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.footer-premium .social-links a:hover {
+  background: var(--accent-color, #e84545);
+  border-color: var(--accent-color, #e84545);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
+.footer-bottom {
+  background: #f1f1f1;
+  padding: 18px 0;
+  margin-top: 40px;
+  font-size: 13.5px;
+  color: #777777;
+  border-top: 1px solid #e0e0e0;
+}
+.footer-bottom strong { color: #32353a; }
+.footer-bottom-links a {
+  color: #777777;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.footer-bottom-links a:hover { color: var(--accent-color, #e84545); }
+.footer-bottom-links span { margin: 0 8px; color: #ccc; }
+@media (max-width: 991px) {
+  .footer-premium { padding-top: 50px; }
+  .footer-social-row { flex-direction: column; align-items: flex-start; }
+}
+</style>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <!-- Swiper JS CDN -->
+<script>
+  new Swiper(".mySwiper", {
+    slidesPerView: 5,
+    spaceBetween: 30,
+    loop: true,
+    autoplay: {
+      delay: 2000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      320: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      1024: { slidesPerView: 5 }
+    }
+  });
+</script>
+
+
+</body>
+
+</html>

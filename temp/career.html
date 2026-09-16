@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  body { background: #f3f3f8 !important; }
+
+  #header .navmenu ul li a { color: #000 !important; }
+
+  /* Card wrapper */
+  .career-wrapper {
+    width: 100%;
+    max-width: 1250px;
+    margin: auto;
+    padding: 60px 40px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  /* Title */
+  .career-title h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-bottom: 8px;
+  }
+
+  .career-title p {
+    font-size: 16px;
+    color: #777;
+  }
+
+  /* Table */
+  .career-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    margin-top: 30px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .career-table thead tr {
+    background: linear-gradient(90deg, #e84545, #E6E6E6);
+    color: #0C0D12;
+  }
+
+  .career-table th, .career-table td {
+    padding: 16px 20px;
+  }
+
+  .career-table tbody tr {
+    transition: 0.25s all ease;
+  }
+
+  .career-table tbody tr:hover {
+    background: #f3efff;
+    transform: scale(1.01);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .badge-purple { background: #6A5ACD; color: #fff; }
+  .badge-red { background: #d64545; color: #fff; }
+  .badge-yellow { background: #f8d162; color: #000; }
+  .badge-green { background: #3fae72; color: #fff; }
+
+  /* Bottom info */
+  .career-footer {
+    margin-top: 45px;
+    text-align: center;
+  }
+  .career-footer p {
+    font-size: 15px;
+    color: black;
+  }
+  .career-footer a {
+    color: #6A5ACD;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Fade animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<main class="main" style="margin-top:4%; background:#ececf4; padding:70px 0; font-family:'Poppins', sans-serif;">
+  <div class="career-wrapper">
+    <!-- Title Section -->
+      <div class="container section-title" data-aos="fade-up">
+      <h2>Career Opportunities</h2>
+      <p>{{join_us_section.description|safe}}</p>
+      </div>
+    <!-- Job Table -->
+    <table class="career-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Position</th>
+          <th style="text-align:left;">Job Details</th>
+          <th style="text-align:center;">Type</th>
+          <th style="text-align:center;">Location</th>
+          <th style="text-align:center;">Deadline</th>
+        </tr>
+      </thead>
+<!--      <tbody>-->
+<!--        &lt;!&ndash; Row 1 &ndash;&gt;-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <a href="#" style="color:#0C0D12; font-weight:600; text-decoration:none;">Marketing Officer (AMO)</a>-->
+<!--            <div style="font-size:12px; color:#777; margin-top:4px;">Posted: Nov 3, 2025</div>-->
+<!--          </td>-->
+<!--          <td style="color:#444;">Build strong market presence, lead campaigns, and ensure consistent brand visibility.</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-purple">Full Time</span></td>-->
+<!--          <td style="text-align:center; color:#333;">Dhaka</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-red">16 Nov 2025</span></td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; Row 2 &ndash;&gt;-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <a href="#" style="color:#0C0D12; font-weight:600; text-decoration:none;">Sr. Software Engineer</a>-->
+<!--            <div style="font-size:12px; color:#777; margin-top:4px;">Posted: Oct 28, 2025</div>-->
+<!--          </td>-->
+<!--          <td style="color:#444;">Develop and maintain scalable web platforms using Django and React.</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-purple">Full Time</span></td>-->
+<!--          <td style="text-align:center; color:#333;">Chattogram, Dhaka</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-yellow">30 Nov 2025</span></td>-->
+<!--        </td>-->
+
+<!--        &lt;!&ndash; Row 3 &ndash;&gt;-->
+<!--        <tr>-->
+<!--          <td>-->
+<!--            <a href="#" style="color:#0C0D12; font-weight:600; text-decoration:none;">Civil Engineer (Officer)</a>-->
+<!--            <div style="font-size:12px; color:#777; margin-top:4px;">Posted: Oct 15, 2025</div>-->
+<!--          </td>-->
+<!--          <td style="color:#444;">Oversee construction, renovation, and interior projects with quality assurance.</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-purple">Full Time</span></td>-->
+<!--          <td style="text-align:center; color:#333;">Chattogram</td>-->
+<!--          <td style="text-align:center;"><span class="badge badge-green">Active</span></td>-->
+<!--        </tr>-->
+
+<!--      </tbody>-->
+    </table>
+
+    <!-- Footer -->
+    <div class="career-footer">
+<!--      <p>{{join_us_section.description|safe}}</p>-->
+      <p>Please send your CV to
+        <a href="mailto:career@yourcompany.com">info@baygroupco.com</a>
+      </p>
+    </div>
+
+  </div>
+</main>
+
+{% endblock %}

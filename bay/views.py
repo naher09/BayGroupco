@@ -1,0 +1,300 @@
+from django.contrib import messages
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
+from .models import *
+
+# ===================== HOME PAGE =====================
+from django.shortcuts import render
+from .models import *
+
+# ===================== HOME PAGE =====================
+from django.shortcuts import render
+
+
+def home_view(request):
+    # Home page sections
+    banners = HomeBanner.objects.filter(is_active=True).order_by('order')
+    about_section = HomeAboutSection.objects.filter(is_active=True).first()
+    history_headlines = HistoryHeadline.objects.filter(is_active=True).first()  # NEW
+    histories = History.objects.filter(is_active=True).order_by('order')
+    partners_headline = OurPartnerHeadline.objects.filter(is_active=True).first()  # NEW
+    partners = OurPartner.objects.filter(is_active=True).order_by('order')[:20]
+    join_us_section = JoinUs.objects.filter(is_active=True).first()
+    csr_section = CsrHome.objects.filter(is_active=True).first()
+    brand_logos = GroupBrandLogo.objects.filter(is_active=True).order_by('order')
+    customer_logos = OurCustomerLogo.objects.filter(is_active=True).order_by('order')
+    aen_posts = Aen.objects.filter(is_active=True).order_by('order')
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+    aen_headline_home = AenHeadlineHome.objects.filter(is_active=True).first()  # NEW
+    # Footer section (Jusing new models)
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.first()
+
+    context = {
+        'banners': banners,
+        'about_section': about_section,
+        'histories': histories,
+        'history_headlines': history_headlines,
+        'partners_headline': partners_headline,
+        'partners': partners,
+        'join_us_section': join_us_section,
+        'csr_section': csr_section,
+        'brand_logos': brand_logos,
+        'customer_logos': customer_logos,
+        'aen_posts': aen_posts,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+        'aen_headline_home': aen_headline_home,
+    }
+    return render(request, 'index.html', context)
+
+
+
+# ===================== ABOUT US PAGE =====================
+def about_view(request):
+    about_items = AboutItem.objects.all()
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    about_headline = AboutItemHeadline.objects.first()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+
+    return render(request, 'about.html', {
+        'about_items': about_items,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'about_headline': about_headline,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+    })
+
+
+# ===================== KEY MANAGEMENT PAGE =====================
+def key_management_view(request):
+    team_members = KeyManagement.objects.filter(is_active=True).order_by('order')
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    key_management_headline = KeyManagementHeadline.objects.first()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+
+    return render(request, 'key_management.html', {
+        'team_members': team_members,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'key_management_headline': key_management_headline,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+    })
+
+# ===================== CSR PAGE =====================
+def csr_view(request):
+    csr_items = Csr.objects.filter(is_active=True).order_by('sequence')
+    csr_page_headline = CsrHeadline.objects.first()
+
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+
+    return render(request, 'csr.html', {
+        'csr_items': csr_items,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+        'csr_page_headline': csr_page_headline,
+    })
+
+# ===================== AEN PAGE =====================
+def aen_view(request):
+    # AEN Content
+    aen_headline = AenHeadline.objects.first()
+    aen_items = Aen.objects.filter(is_active=True).order_by('order')
+    # Footer
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    # Business page
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+    # CSR headline (if this is needed)
+    src_headline = CsrHeadline.objects.first()
+    context = {
+        'aen_headline': aen_headline,
+        'aen_items': aen_items,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+        'src_headline': src_headline,
+    }
+    return render(request, 'aen.html', context)
+
+
+
+# ===================== CAREER PAGE =====================
+def career_view(request):
+    jobs = CareerOpportunity.objects.filter(is_active=True, status='active').order_by('order')
+    join_us_section = JoinUs.objects.filter(is_active=True).first()
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+    context = {
+        'jobs': jobs,
+        'footer_about': footer_about,
+        'useful_links': useful_links,
+        'contact_info': contact_info,
+        'social_media': social_media,
+        'business_page_view': business_page_view,
+        'partner_page_view': partner_page_view,
+        'join_us_section':join_us_section
+    }
+    return render(request, 'career.html', context)
+
+
+# ===================== CAREER DETAIL PAGE =====================
+def career_detail_view(request, pk):
+    job = get_object_or_404(CareerOpportunity, pk=pk)
+    # Footer section (using new models)
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+    context = {'job': job,'footer_about':footer_about,'useful_links':useful_links,
+                                          'contact_info':contact_info,'social_media':social_media,
+                                          'business_page_view':business_page_view,'partner_page_view':partner_page_view}
+    return render(request, 'career_detail.html', context)
+
+
+# ===================== CONTACT PAGE =====================
+
+def contact_view(request):
+    # Footer + Contact info
+    context = {
+        "footer_about": FooterAbout.objects.first(),
+        "useful_links": FooterUsefulLink.objects.all(),
+        "contact_info": FooterContactInfo.objects.first(),
+        "social_media": FooterSocialMedia.objects.all(),
+        "business_page_view": OurConcernPageName.objects.all(),
+        "partner_page_view": PartnerPageName.objects.all(),
+        "page_contact_info": ContactInfo.objects.first(),
+        "success": request.GET.get("success") == "1",
+    }
+
+    # Handle Form Submit
+    if request.method == "POST":
+        name = request.POST.get("name", "").strip()
+        email = request.POST.get("email", "").strip()
+        subject = request.POST.get("subject", "").strip()
+        message = request.POST.get("message", "").strip()
+
+        # Basic Validation
+        if not name or not email or not subject or not message:
+            messages.error(request, "All fields are required.")
+            return redirect("/contact/")
+
+        # Save the message
+        ContactMessage.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message,
+            created_at=timezone.now(),
+            is_read=False,
+        )
+
+        return redirect("/contact/?success=1")
+
+    return render(request, "contact.html", context)
+
+
+
+
+def footer_partial(request):
+    # Footer section (using new models)
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.all()
+
+    return render(request, "include/footer.html", {
+        "footer_about": footer_about,
+        "useful_links": useful_links,
+        "contact_info": contact_info,
+        "social_media": social_media,
+    })
+
+def BusinessPageView(request, name):
+    business_page = get_object_or_404(OurConcernPageName, page_name=name)
+    business_data = OurConcernPageDetail.objects.filter(business_p=business_page).first()
+    business_page_view = OurConcernPageName.objects.all()
+    partner_page_view = PartnerPageName.objects.all()
+
+    # Footer section (using new models)
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.first()
+    context = {
+        "business_page": business_page,
+        "business_data": business_data,
+        "business_page_view": business_page_view,
+        "partner_page_view": partner_page_view,
+        "footer_about": footer_about,
+        "useful_links": useful_links,
+        "contact_info": contact_info,
+        "social_media": social_media,
+    }
+    return render(request, "business_page_details.html", context)
+
+
+def PartnerPageView(request, name):
+    partner_page = get_object_or_404(PartnerPageName, page_name=name)
+    partner_data = PartnerPageDetail.objects.filter(partner_p=partner_page).first()
+    partner_page_view = PartnerPageName.objects.all()
+    business_page_view = OurConcernPageName.objects.all()
+
+    footer_about = FooterAbout.objects.first()
+    useful_links = FooterUsefulLink.objects.all()
+    contact_info = FooterContactInfo.objects.first()
+    social_media = FooterSocialMedia.objects.first()
+    context = {
+        "partner_page": partner_page,
+        "partner_data": partner_data,
+        "partner_page_view": partner_page_view,
+        "business_page_view": business_page_view,
+        "footer_about": footer_about,
+        "useful_links": useful_links,
+        "contact_info": contact_info,
+        "social_media": social_media,
+    }
+    return render(request, "partner_page_details.html", context)

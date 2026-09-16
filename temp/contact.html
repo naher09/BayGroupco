@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+{background: #fff !important; transition: none !important;}
+#header .navmenu ul li a {color: #000 !important;}
+
+  /* Make all contact info boxes same height */
+  .info-item {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+      /* FIXED SIZE & VERTICAL CENTERING */
+      min-height: 180px; /* Adjust size if needed */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+  .info-item i {
+      font-size: 32px;
+      color: #0d6efd;
+      margin-bottom: 10px;
+  }
+
+  .info-item h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-weight: 600;
+  }
+
+  .info-item p {
+      margin: 0;
+      color: #444;
+  }
+
+  .info-item p + p {
+      margin-top: 4px;
+  }
+  .g-4, .gy-4 {
+    --bs-gutter-y: 0.5rem;
+}
+
+</style>
+
+<main class="main" style="margin: 5%;">
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contact</h2>
+      <p>Feel free to reach out for any inquiries or support.</p>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+
+        <!-- LEFT SIDE CONTACT INFO -->
+        <div class="col-lg-6" style="--bs-gutter-y: 0.5rem;">
+          <div class="row gy-4">
+
+            <!-- Address -->
+            <div class="col-md-6">
+              <div class="info-item" data-aos="fade" data-aos-delay="200">
+                <i class="bi bi-geo-alt"></i>
+                <h3>Address</h3>
+                <p>{{ page_contact_info.address }}</p>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+              <div class="info-item" data-aos="fade" data-aos-delay="300">
+                <i class="bi bi-telephone"></i>
+                <h3>Phone</h3>
+                <p>{{ page_contact_info.phone }}</p>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+              <div class="info-item" data-aos="fade" data-aos-delay="400">
+                <i class="bi bi-envelope"></i>
+                <h3>Email Us</h3>
+                <p>{{ page_contact_info.email }}</p>
+              </div>
+            </div>
+
+            <!-- Joint Venture -->
+            <div class="col-md-6">
+              <div class="info-item" data-aos="fade" data-aos-delay="500">
+                <i class="bi bi-briefcase"></i>
+                <h3>Joint Venture</h3>
+                {% if page_contact_info.jv_whatsapp %}
+                <p>Whatsapp: {{ page_contact_info.jv_whatsapp }}</p>
+                {% endif %}
+                {% if page_contact_info.jv_email %}
+                <p>Email: {{ page_contact_info.jv_email }}</p>
+                {% endif %}
+                {% if page_contact_info.jv and not page_contact_info.jv_whatsapp and not page_contact_info.jv_email %}
+                <p>{{ page_contact_info.jv }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Small Message -->
+<!--            <div class="col-md-6">-->
+<!--              <div class="info-item" data-aos="fade" data-aos-delay="500">-->
+<!--                  <i class="bi bi-telephone"></i>-->
+<!--                <h3>Mobile</h3>-->
+<!--                <p>{{ page_contact_info.mobile }}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE FORM -->
+        <div class="col-lg-6" style="--bs-gutter-y: 0.5rem;">
+
+          <!-- SUCCESS MESSAGE -->
+          {% if success %}
+          <div class="alert alert-success text-center">
+              Your message has been sent successfully!
+          </div>
+          {% endif %}
+
+          <form method="post" action="{% url 'contact' %}" class="php-email-form"
+                data-aos="fade-up" data-aos-delay="200">
+              {% csrf_token %}
+              <div class="row gy-4">
+
+                  <div class="col-md-6">
+                      <input type="text" name="name" class="form-control"
+                             placeholder="Your Name" required>
+                  </div>
+
+                  <div class="col-md-6">
+                      <input type="email" class="form-control" name="email"
+                             placeholder="Your Email" required>
+                  </div>
+
+                  <div class="col-12">
+                      <input type="text" class="form-control" name="subject"
+                             placeholder="Subject" required>
+                  </div>
+
+                  <div class="col-12">
+                      <textarea class="form-control" name="message" rows="6"
+                                placeholder="Message" required></textarea>
+                  </div>
+
+                  <div class="col-12 text-center">
+                      <button type="submit">Send Message</button>
+
+                      <!-- Spinner -->
+                      <div class="loading" style="display: none; margin-top: 10px;">
+                          <div class="spinner-border text-primary" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                          </div>
+                          <span> Sending...</span>
+                      </div>
+
+                      <div class="error-message" style="display: none; color: red; margin-top: 5px;"></div>
+                  </div>
+
+              </div>
+          </form>
+
+        </div><!-- End Contact Form -->
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- Show Spinner When Submitting -->
+<script>
+const form = document.querySelector('.php-email-form');
+form.addEventListener('submit', function() {
+    const loading = form.querySelector('.loading');
+    loading.style.display = 'flex'; // show spinner
+});
+</script>
+
+{% endblock %}
