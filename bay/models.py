@@ -234,7 +234,7 @@ class KeyManagementHeadline(models.Model):
 
 class KeyManagement(models.Model):
     """Model to represent a key management or advisory team member."""
-    image = models.ImageField(upload_to='key_management/')
+    image = models.ImageField(upload_to='key_management/', null= True, blank= True)
     name = models.CharField(max_length=200)
     designation = CKEditor5Field()
     description = CKEditor5Field()
