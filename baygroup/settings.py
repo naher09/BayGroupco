@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-*^^9er-9b!l7&wk#*_)s=18(z5xwlg=e3$oz^r84*0t-r9f-$8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+        '103.169.105.109',
+        'baygroupco.com',
+        'www.baygroupco.com',   
+        ]
 
 
 # Application definition
@@ -86,16 +90,28 @@ WSGI_APPLICATION = 'baygroup.wsgi.application'
 # }
 
 #
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'Bay-Group-DB',       # Your database name
+#        'USER': 'postgres',          # Your database user
+#        'PASSWORD': 'postgres',      # Your database password
+#        'HOST': 'localhost',         # Usually localhost
+#        'PORT': '5432',              # Default PostgreSQL port
+#    }
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Bay-Group-DB',       # Your database name
-        'USER': 'postgres',          # Your database user
-        'PASSWORD': 'postgres',      # Your database password
+        'NAME': 'baygroup_new_db',   # Your database name
+        'USER': 'website',          # Your database user
+        'PASSWORD': '@m@rb@yweb$1t',  # Your database password
         'HOST': 'localhost',         # Usually localhost
         'PORT': '5432',              # Default PostgreSQL port
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

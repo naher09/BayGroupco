@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block robots %}{% if business_page.slug == 'bay-emporium-ltd' %}noindex, nofollow{% else %}index, follow{% endif %}{% endblock %}
+
 {% block content %}
 
 <style>
@@ -87,8 +90,8 @@
     <!-- Dynamic Page Title -->
     <div class="page-title" data-aos="fade-up">
         <div class="container section-title" style="padding-bottom: 0px !important;">
-            <h2>{{ partner_data.page_title }}</h2>
-            <p>{{ partner_data.title }}</p>
+            <h2>{{ business_data.page_title }}</h2>
+            <p>{{ business_data.title }}</p>
         </div>
     </div>
 
@@ -96,7 +99,7 @@
     <section id="portfolio-details" class="portfolio-details section">
         <div class="container" data-aos="fade-up">
 
-            {% if partner_data.image_1 or partner_data.image_2 %}
+            {% if business_data.image_1 or business_data.image_2 %}
             <div class="portfolio-details-slider swiper init-swiper">
 
                 <script type="application/json" class="swiper-config">
@@ -115,14 +118,14 @@
                 </script>
 
                 <div class="swiper-wrapper align-items-center">
-                    {% if partner_data.image_1 %}
+                    {% if business_data.image_1 %}
                     <div class="swiper-slide">
-                        <img src="{{ partner_data.image_1.url }}" alt="">
+                        <img src="{{ business_data.image_1.url }}" alt="">
                     </div>
                     {% endif %}
-                    {% if partner_data.image_2 %}
+                    {% if business_data.image_2 %}
                     <div class="swiper-slide">
-                        <img src="{{ partner_data.image_2.url }}" alt="">
+                        <img src="{{ business_data.image_2.url }}" alt="">
                     </div>
                     {% endif %}
                 </div>
@@ -135,8 +138,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-12" data-aos="fade-up">
                     <div class="portfolio-description">
-                        <h2>{{ partner_data.title }}</h2>
-                        <p>{{ partner_data.body|safe }}</p>
+                        <h2>{{ business_data.title }}</h2>
+                        <p>{{ business_data.body|safe }}</p>
                     </div>
                 </div>
             </div>
